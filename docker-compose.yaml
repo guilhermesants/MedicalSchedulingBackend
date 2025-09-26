@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgressql_container
+    restart: always
+    environment:
+      POSTGRES_USER: backuser
+      POSTGRES_PASSWORD: backuser123
+      POSTGRES_DB: medical_scheduling_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+
+volumes:
+  pg_data:
