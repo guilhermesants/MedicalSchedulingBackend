@@ -15,8 +15,7 @@ internal sealed class RoleMap : IEntityTypeConfiguration<Role>
                 .ValueGeneratedOnAdd();
 
         builder.Property(r => r.Name)
-                .HasColumnName("name")
-                .ValueGeneratedOnAdd();
+                .HasColumnName("name");
 
         builder.HasMany(r => r.Users)
                 .WithOne(r => r.Role)

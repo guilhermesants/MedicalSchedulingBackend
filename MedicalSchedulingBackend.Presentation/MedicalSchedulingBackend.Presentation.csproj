@@ -9,13 +9,11 @@
   <ItemGroup>
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="9.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.4" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <ProjectReference Include="..\MedicalSchedulingBackend.Application\MedicalSchedulingBackend.Application.csproj" />
     <ProjectReference Include="..\MedicalSchedulingBackend.Infrastructure\MedicalSchedulingBackend.Infrastructure.csproj" />
   </ItemGroup>
 

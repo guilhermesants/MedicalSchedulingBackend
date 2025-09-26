@@ -6,4 +6,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Cortex.Mediator" Version="1.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MedicalSchedulingBackend.Domain\MedicalSchedulingBackend.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,0 +1,10 @@
+﻿using MedicalSchedulingBackend.Domain.Entities;
+using MedicalSchedulingBackend.Domain.Interfaces.Repositories;
+using MedicalSchedulingBackend.Infrastructure.Context;
+
+namespace MedicalSchedulingBackend.Infrastructure.Concretes;
+
+internal class AppointmentStatusRepository(MedicalSchedulingContext dbContext) : Repository<AppointmentStatus>(dbContext), IAppointmentStatusRepository
+{
+}
+

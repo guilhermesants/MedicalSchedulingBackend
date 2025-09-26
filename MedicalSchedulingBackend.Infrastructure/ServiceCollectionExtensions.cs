@@ -1,4 +1,6 @@
-﻿using MedicalSchedulingBackend.Infrastructure.Context;
+﻿using MedicalSchedulingBackend.Domain.Interfaces.Repositories;
+using MedicalSchedulingBackend.Infrastructure.Concretes;
+using MedicalSchedulingBackend.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -10,7 +12,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         return services.AddDbContext(configuration)
-                       .AddDbHealthCheck();
+                       .AddDbHealthCheck()
+                       .AddRepositories();
     }
 
     private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -31,6 +34,12 @@ public static class ServiceCollectionExtensions
         services.AddHealthChecks()
                 .AddDbContextCheck<MedicalSchedulingContext>("PostgresConn");
 
+        return services;
+    }
+
+    private static IServiceCollection AddRepositories(this IServiceCollection services)
+    {
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
         return services;
     }
 }
