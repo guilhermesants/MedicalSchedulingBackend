@@ -1,0 +1,1 @@
+﻿global using IUnitOfWork = MedicalSchedulingBackend.Domain.Interfaces.Repositories.IUnitOfWork;

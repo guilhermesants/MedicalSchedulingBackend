@@ -28,6 +28,11 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__PostgresConn=Host=postgres;Port=5432;Database=medical_scheduling_db;Username=backuser;Password=backuser123
+      - Jwt__Audience=MedicalSchedulingUsers
+      - Jwt__ExpirationMinutes=540
+      - Jwt__Issuer=MedicalSchedulingUsers.com.br
+      - Jwt__SecretKey=N8v3Kq7bX2wL9fD6hR1sP0zY4mT5jV8Q
+
     networks:
       - medical_scheduling
 

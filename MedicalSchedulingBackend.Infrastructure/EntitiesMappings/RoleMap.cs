@@ -21,6 +21,6 @@ internal sealed class RoleMap : IEntityTypeConfiguration<Role>
                 .WithOne(r => r.Role)
                 .HasForeignKey(r => r.RoleId);
 
-        builder.ToTable("Roles", "public");
+        builder.ToTable("roles", "public");
     }
 }

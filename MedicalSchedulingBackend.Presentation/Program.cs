@@ -1,5 +1,6 @@
 using HealthChecks.UI.Client;
 using MedicalSchedulingBackend.Application;
+using MedicalSchedulingBackend.Application.Configuration;
 using MedicalSchedulingBackend.Infrastructure;
 using MedicalSchedulingBackend.Presentation.Exceptions;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -14,6 +15,9 @@ builder.Services.AddProblemDetails(configure =>
         context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
     };
 });
+
+builder.Services.Configure<JwtSettings>(builder.Configuration.GetSection("Jwt"));
+
 // Add services to the container.
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);

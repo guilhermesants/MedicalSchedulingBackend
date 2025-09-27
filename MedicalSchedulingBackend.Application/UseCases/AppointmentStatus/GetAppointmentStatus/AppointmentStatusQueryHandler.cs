@@ -1,6 +1,5 @@
 ﻿using Cortex.Mediator.Queries;
 using MedicalSchedulingBackend.Application.Dtos;
-using IUnitOfWork = MedicalSchedulingBackend.Domain.Interfaces.Repositories.IUnitOfWork;
 
 namespace MedicalSchedulingBackend.Application.UseCases.AppointmentStatus.GetAppointmentStatus;
 

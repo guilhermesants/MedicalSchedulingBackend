@@ -3,7 +3,7 @@ using MedicalSchedulingBackend.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
 
-namespace MedicalSchedulingBackend.Infrastructure.Concretes;
+namespace MedicalSchedulingBackend.Infrastructure.Concretes.Repositories;
 
 internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity : class
 {
@@ -27,8 +27,11 @@ internal abstract class Repository<TEntity> : IRepository<TEntity> where TEntity
     public virtual async Task<IEnumerable<TEntity>> GetAllAsync(CancellationToken cancellationToken = default)
         => await DbSet.ToListAsync(cancellationToken);
 
+    public virtual async Task<TEntity?> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        => await DbSet.FirstOrDefaultAsync(predicate, cancellationToken);
+
     public virtual void Remove(TEntity entity)
-        => DbSet.Remove(entity);
+            => DbSet.Remove(entity);
 
     public virtual void Update(TEntity entity)
         => DbSet.Update(entity);

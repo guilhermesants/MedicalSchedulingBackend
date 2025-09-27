@@ -1,7 +1,7 @@
 ﻿using MedicalSchedulingBackend.Domain.Interfaces.Repositories;
 using MedicalSchedulingBackend.Infrastructure.Context;
 
-namespace MedicalSchedulingBackend.Infrastructure.Concretes;
+namespace MedicalSchedulingBackend.Infrastructure.Concretes.Repositories;
 
 internal class UnitOfWork : IUnitOfWork, IDisposable
 {
@@ -13,9 +13,11 @@ internal class UnitOfWork : IUnitOfWork, IDisposable
         _context = context ?? throw new ArgumentNullException(nameof(context));
 
         AppointmentStatusRepository = new AppointmentStatusRepository(context);
+        UserRepository = new UserRepository(context);
     }
 
     public IAppointmentStatusRepository AppointmentStatusRepository { get; }
+    public IUserRepository UserRepository { get; }
 
     public async Task CommitAsync(CancellationToken cancellationToken = default)
         => await _context.SaveChangesAsync(cancellationToken);

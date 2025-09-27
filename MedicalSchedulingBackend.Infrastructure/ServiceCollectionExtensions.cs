@@ -1,6 +1,8 @@
-﻿using MedicalSchedulingBackend.Domain.Interfaces.Repositories;
-using MedicalSchedulingBackend.Infrastructure.Concretes;
+﻿using MedicalSchedulingBackend.Application.Interface.Security;
+using MedicalSchedulingBackend.Domain.Interfaces.Repositories;
+using MedicalSchedulingBackend.Infrastructure.Concretes.Repositories;
 using MedicalSchedulingBackend.Infrastructure.Context;
+using MedicalSchedulingBackend.Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +15,8 @@ public static class ServiceCollectionExtensions
     {
         return services.AddDbContext(configuration)
                        .AddDbHealthCheck()
-                       .AddRepositories();
+                       .AddRepositories()
+                       .AddSecurity();
     }
 
     private static IServiceCollection AddDbContext(this IServiceCollection services, IConfiguration configuration)
@@ -40,6 +43,12 @@ public static class ServiceCollectionExtensions
     private static IServiceCollection AddRepositories(this IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        return services;
+    }
+
+    private static IServiceCollection AddSecurity(this IServiceCollection services)
+    {
+        services.AddSingleton<ITokenProvider, TokenProvider>();
         return services;
     }
 }
