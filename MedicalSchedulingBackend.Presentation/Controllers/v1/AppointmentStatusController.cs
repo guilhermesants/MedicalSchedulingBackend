@@ -1,6 +1,5 @@
 ﻿using Cortex.Mediator;
 using MedicalSchedulingBackend.Application.Dtos;
-using MedicalSchedulingBackend.Application.Security.Roles;
 using MedicalSchedulingBackend.Application.UseCases.AppointmentStatus.GetAppointmentStatus;
 using MedicalSchedulingBackend.Presentation.Attributes;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +16,7 @@ public class AppointmentStatusController(IMediator meditor) : ControllerBase
     [HttpGet]
     [AuthorizeRoles]
     [SwaggerOperation(summary: "Obter status de agendamento", description: "Retorna uma lista de status disponíveis")]
-    [ProducesResponseType(typeof(AppointmentStatusDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(IEnumerable<AppointmentStatusDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ValidationProblemDetails), StatusCodes.Status500InternalServerError)]
     public async Task<IActionResult> GetAppointmentStatus(CancellationToken cancellationToken = default)
     {
