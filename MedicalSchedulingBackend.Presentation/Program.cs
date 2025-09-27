@@ -1,10 +1,19 @@
 using HealthChecks.UI.Client;
 using MedicalSchedulingBackend.Application;
 using MedicalSchedulingBackend.Infrastructure;
+using MedicalSchedulingBackend.Presentation.Exceptions;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails(configure =>
+{
+    configure.CustomizeProblemDetails = context =>
+    {
+        context.ProblemDetails.Extensions.TryAdd("requestId", context.HttpContext.TraceIdentifier);
+    };
+});
 // Add services to the container.
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
@@ -31,6 +40,7 @@ app.MapHealthChecks("health", new HealthCheckOptions
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });
 
+app.UseExceptionHandler();
 app.UseAuthorization();
 
 app.MapControllers();

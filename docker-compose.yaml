@@ -8,9 +8,32 @@ services:
       POSTGRES_PASSWORD: backuser123
       POSTGRES_DB: medical_scheduling_db
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - pg_data:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d
+    networks:
+      - medical_scheduling
+
+  medicalschedulingapi:
+    build:
+      context: .
+      dockerfile: MedicalSchedulingBackend.Presentation/Dockerfile
+    container_name: medicalschedulingapi_container
+    restart: always
+    depends_on:
+      - postgres
+    ports:
+      - "5000:8080"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__PostgresConn=Host=postgres;Port=5432;Database=medical_scheduling_db;Username=backuser;Password=backuser123
+    networks:
+      - medical_scheduling
 
 volumes:
   pg_data:
+
+networks:
+  medical_scheduling:
+    driver: bridge
