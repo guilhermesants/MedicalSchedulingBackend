@@ -1,6 +1,7 @@
 using FluentAssertions;
 using FluentValidation.TestHelper;
 using MedicalSchedulingBackend.Application.UseCases.Auth.Login;
+using System.Text;
 
 namespace Application.Tests;
 
@@ -13,14 +14,17 @@ public class AuthenticateUserCommandValidatorTests
         _validator = new AuthenticateUserCommandValidator();
     }
 
+    private static string Normalize(string input) => input.Normalize(NormalizationForm.FormC);
+
     [Fact]
     public void Validate_ShouldReturnError_WhenUsernameIsEmpty()
     {
         var model = new AuthenticateUserCommand("", "admin");
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.User)
-              .WithErrorMessage("O login é obrigatório");
+        var error = result.Errors.First(e => e.PropertyName == nameof(model.User));
+        error.Should().NotBeNull();
+        Normalize(error.ErrorMessage).Should().Be(Normalize("O login é obrigatório"));
     }
 
     [Fact]
@@ -29,8 +33,9 @@ public class AuthenticateUserCommandValidatorTests
         var model = new AuthenticateUserCommand("admin", "");
         var result = _validator.TestValidate(model);
 
-        result.ShouldHaveValidationErrorFor(x => x.Password)
-              .WithErrorMessage("A senha é obrigatória");
+        var error = result.Errors.First(e => e.PropertyName == nameof(model.Password));
+        error.Should().NotBeNull();
+        Normalize(error.ErrorMessage).Should().Be(Normalize("A senha é obrigatória"));
     }
 
     [Theory]
@@ -40,6 +45,6 @@ public class AuthenticateUserCommandValidatorTests
     {
         var model = new AuthenticateUserCommand(login, password);
         var result = _validator.TestValidate(model);
-        result.Errors.Should().Contain(e => e.ErrorMessage == expectedMessage);
+        result.Errors.Should().Contain(e => Normalize(e.ErrorMessage) == Normalize(expectedMessage));
     }
 }
