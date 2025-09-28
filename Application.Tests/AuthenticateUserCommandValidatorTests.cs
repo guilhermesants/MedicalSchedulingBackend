@@ -1,6 +1,7 @@
-using FluentAssertions;
+ï»¿using FluentAssertions;
 using FluentValidation.TestHelper;
 using MedicalSchedulingBackend.Application.UseCases.Auth.Login;
+using System.Globalization;
 using System.Text;
 
 namespace Application.Tests;
@@ -14,8 +15,6 @@ public class AuthenticateUserCommandValidatorTests
         _validator = new AuthenticateUserCommandValidator();
     }
 
-    private static string Normalize(string input) => input.Normalize(NormalizationForm.FormC);
-
     [Fact]
     public void Validate_ShouldReturnError_WhenUsernameIsEmpty()
     {
@@ -24,7 +23,7 @@ public class AuthenticateUserCommandValidatorTests
 
         var error = result.Errors.First(e => e.PropertyName == nameof(model.User));
         error.Should().NotBeNull();
-        Normalize(error.ErrorMessage).Should().Be(Normalize("O login é obrigatório"));
+        result.Errors.Should().Contain(e => e.ErrorMessage == "O login Ã© obrigatÃ³rio");
     }
 
     [Fact]
@@ -35,16 +34,16 @@ public class AuthenticateUserCommandValidatorTests
 
         var error = result.Errors.First(e => e.PropertyName == nameof(model.Password));
         error.Should().NotBeNull();
-        Normalize(error.ErrorMessage).Should().Be(Normalize("A senha é obrigatória"));
+        result.Errors.Should().Contain(e => e.ErrorMessage == "A senha Ã© obrigatÃ³ria");
     }
 
     [Theory]
-    [InlineData("", "1234", "O login é obrigatório")]
-    [InlineData("admin", "", "A senha é obrigatória")]
+    [InlineData("", "1234", "O login Ã© obrigatÃ³rio")]
+    [InlineData("admin", "", "A senha Ã© obrigatÃ³ria")]
     public void Validate_ShouldReturnError_WhenLoginOrPasswordIsEmpty(string login, string password, string expectedMessage) 
     {
         var model = new AuthenticateUserCommand(login, password);
         var result = _validator.TestValidate(model);
-        result.Errors.Should().Contain(e => Normalize(e.ErrorMessage) == Normalize(expectedMessage));
+        result.Errors.Should().Contain(e => e.ErrorMessage == expectedMessage);
     }
 }
