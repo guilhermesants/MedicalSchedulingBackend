@@ -29,6 +29,11 @@ internal sealed class UserMap : IEntityTypeConfiguration<User>
         builder.Property(a => a.RoleId)
                .HasColumnName("role_id");
 
+        builder.HasMany(a => a.Doctors)
+               .WithOne(a => a.User)
+               .HasForeignKey(a => a.UserId)
+               .OnDelete(DeleteBehavior.Cascade);
+
         builder.ToTable("users", "public");
     }
 }

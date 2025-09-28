@@ -1,10 +1,8 @@
 ﻿using FluentAssertions;
 using FluentValidation.TestHelper;
 using MedicalSchedulingBackend.Application.UseCases.Auth.Login;
-using System.Globalization;
-using System.Text;
 
-namespace Application.Tests;
+namespace Application.Tests.UseCaces.AuthenticateUser;
 
 public class AuthenticateUserCommandValidatorTests
 {
@@ -40,7 +38,7 @@ public class AuthenticateUserCommandValidatorTests
     [Theory]
     [InlineData("", "1234", "O login é obrigatório")]
     [InlineData("admin", "", "A senha é obrigatória")]
-    public void Validate_ShouldReturnError_WhenLoginOrPasswordIsEmpty(string login, string password, string expectedMessage) 
+    public void Validate_ShouldReturnError_WhenLoginOrPasswordIsEmpty(string login, string password, string expectedMessage)
     {
         var model = new AuthenticateUserCommand(login, password);
         var result = _validator.TestValidate(model);

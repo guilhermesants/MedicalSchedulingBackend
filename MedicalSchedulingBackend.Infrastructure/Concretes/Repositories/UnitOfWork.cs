@@ -14,10 +14,12 @@ internal class UnitOfWork : IUnitOfWork, IDisposable
 
         AppointmentStatusRepository = new AppointmentStatusRepository(context);
         UserRepository = new UserRepository(context);
+        DoctorRepository = new DoctorRepository(context);
     }
 
     public IAppointmentStatusRepository AppointmentStatusRepository { get; }
     public IUserRepository UserRepository { get; }
+    public IDoctorRepository DoctorRepository { get; }
 
     public async Task CommitAsync(CancellationToken cancellationToken = default)
         => await _context.SaveChangesAsync(cancellationToken);

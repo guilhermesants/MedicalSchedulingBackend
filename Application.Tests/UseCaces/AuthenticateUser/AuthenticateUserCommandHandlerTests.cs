@@ -6,7 +6,7 @@ using MedicalSchedulingBackend.Domain.Entities;
 using MedicalSchedulingBackend.Domain.Interfaces.Repositories;
 using Moq;
 
-namespace Application.Tests;
+namespace Application.Tests.UseCaces.AuthenticateUser;
 
 public class AuthenticateUserCommandHandlerTests
 {

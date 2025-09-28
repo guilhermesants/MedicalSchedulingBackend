@@ -9,10 +9,13 @@ internal sealed class MedicalSchedulingContext(DbContextOptions<MedicalSchedulin
     public DbSet<Role> Roles { get; set; }
     public DbSet<AppointmentStatus> AppointmentsStatus { get; set; }
     public DbSet<User> Users { get; set; }
+    public DbSet<Doctor> Doctors { get; set; }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new RoleMap());
         modelBuilder.ApplyConfiguration(new AppointmentsStatusMap());
         modelBuilder.ApplyConfiguration(new UserMap());
+        modelBuilder.ApplyConfiguration(new DoctorMap());
     }
 }
