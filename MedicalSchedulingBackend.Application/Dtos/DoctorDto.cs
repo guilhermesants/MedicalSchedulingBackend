@@ -1,4 +1,6 @@
-﻿namespace MedicalSchedulingBackend.Application.Dtos;
+﻿using System.Text.Json.Serialization;
+
+namespace MedicalSchedulingBackend.Application.Dtos;
 
 public class DoctorDto
 {
@@ -7,4 +9,7 @@ public class DoctorDto
     public string Specialty { get; set; } = string.Empty;
     public string Phone { get; set; } = string.Empty;
     public string Email { get; set; } = string.Empty;
+
+    [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
+    public IEnumerable<AvailabilitiesDto>? AvailabilitiesDtos { get; set; }
 }

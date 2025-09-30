@@ -7,6 +7,7 @@ public class Availability
     public DateOnly Date { get; set; }
     public TimeOnly StartTime { get; set; }
     public TimeOnly EndTime { get; set; }
+    public bool Available { get; set; }
     public Doctor Doctor { get; set; } = null!;
     public ICollection<Appointment> Appointments { get; set; } = null!;
 }

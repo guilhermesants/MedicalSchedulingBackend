@@ -27,7 +27,7 @@ public sealed class CreateDoctorCommandHandler(IUnitOfWork uow) : ICommandHandle
             {
                 UserName = command.Email,
                 Password = BCrypt.Net.BCrypt.HashPassword(command.Email),
-                RoleId = (int)RolesType.Doctor
+                RoleId = (int)RolesType.Doctor,
             }
         };
 

@@ -24,12 +24,18 @@ internal sealed class UserMap : IEntityTypeConfiguration<User>
                .HasColumnName("last_login");
 
         builder.Property(a => a.Active)
-               .HasColumnName("active");
+               .HasColumnName("active")
+               .HasDefaultValue(true);
 
         builder.Property(a => a.RoleId)
                .HasColumnName("role_id");
 
         builder.HasMany(a => a.Doctors)
+               .WithOne(a => a.User)
+               .HasForeignKey(a => a.UserId)
+               .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(a => a.Patients)
                .WithOne(a => a.User)
                .HasForeignKey(a => a.UserId)
                .OnDelete(DeleteBehavior.Cascade);

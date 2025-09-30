@@ -12,14 +12,16 @@ internal class UnitOfWork : IUnitOfWork, IDisposable
     {
         _context = context ?? throw new ArgumentNullException(nameof(context));
 
-        AppointmentStatusRepository = new AppointmentStatusRepository(context);
         UserRepository = new UserRepository(context);
         DoctorRepository = new DoctorRepository(context);
+        AvailabilityRepository = new AvailabilityRepository(context);
+        AppointmentStatusRepository = new AppointmentStatusRepository(context);
     }
 
     public IAppointmentStatusRepository AppointmentStatusRepository { get; }
     public IUserRepository UserRepository { get; }
     public IDoctorRepository DoctorRepository { get; }
+    public IAvailabilityRepository AvailabilityRepository { get; }
 
     public async Task CommitAsync(CancellationToken cancellationToken = default)
         => await _context.SaveChangesAsync(cancellationToken);

@@ -19,7 +19,7 @@ internal sealed class AppointmentsStatusMap : IEntityTypeConfiguration<Appointme
 
         builder.HasMany(a => a.Appointments)
                .WithOne(a => a.AppointmentStatus)
-               .HasForeignKey(a => a.AppointmentStatusId);
+               .HasForeignKey(a => a.StatusId);
 
         builder.ToTable("appointment_status", "public");
     }
