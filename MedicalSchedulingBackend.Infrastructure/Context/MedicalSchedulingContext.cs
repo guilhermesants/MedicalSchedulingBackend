@@ -12,6 +12,7 @@ internal sealed class MedicalSchedulingContext(DbContextOptions<MedicalSchedulin
     public DbSet<Doctor> Doctors { get; set; }
     public DbSet<Availability> Availabilities { get; set; }
     public DbSet<Patient> Patients { get; set; }
+    public DbSet<Appointment> Appointments { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -21,5 +22,6 @@ internal sealed class MedicalSchedulingContext(DbContextOptions<MedicalSchedulin
         modelBuilder.ApplyConfiguration(new DoctorMap());
         modelBuilder.ApplyConfiguration(new PatientMap());
         modelBuilder.ApplyConfiguration(new AvailabilityMap());
+        modelBuilder.ApplyConfiguration(new AppointmentMap());
     }
 }

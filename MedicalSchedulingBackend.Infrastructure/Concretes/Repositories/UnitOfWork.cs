@@ -16,12 +16,16 @@ internal class UnitOfWork : IUnitOfWork, IDisposable
         DoctorRepository = new DoctorRepository(context);
         AvailabilityRepository = new AvailabilityRepository(context);
         AppointmentStatusRepository = new AppointmentStatusRepository(context);
+        AppointmentRepository = new AppointmentRepository(context);
+        PatientRepository = new PatientRepository(context);
     }
 
     public IAppointmentStatusRepository AppointmentStatusRepository { get; }
     public IUserRepository UserRepository { get; }
     public IDoctorRepository DoctorRepository { get; }
     public IAvailabilityRepository AvailabilityRepository { get; }
+    public IApppointmentRepository AppointmentRepository { get;}
+    public IPatientRepository PatientRepository { get; }
 
     public async Task CommitAsync(CancellationToken cancellationToken = default)
         => await _context.SaveChangesAsync(cancellationToken);

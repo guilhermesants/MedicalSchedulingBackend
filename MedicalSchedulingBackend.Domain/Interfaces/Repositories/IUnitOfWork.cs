@@ -6,5 +6,7 @@ public interface IUnitOfWork
     IUserRepository UserRepository { get; }
     IDoctorRepository DoctorRepository { get; }
     IAvailabilityRepository AvailabilityRepository { get; }
+    IApppointmentRepository AppointmentRepository { get; }
+    IPatientRepository PatientRepository { get; }
     Task CommitAsync(CancellationToken cancellationToken = default);
 }

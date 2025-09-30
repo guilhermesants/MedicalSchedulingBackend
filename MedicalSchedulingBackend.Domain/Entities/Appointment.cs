@@ -10,4 +10,5 @@ public class Appointment
     public virtual Patient Patient { get; set; } = null!;
     public virtual Doctor Doctor { get; set; } = null!;
     public AppointmentStatus AppointmentStatus { get; set; } = null!;
+    public Availability Availability { get; set; } = null!;
 }

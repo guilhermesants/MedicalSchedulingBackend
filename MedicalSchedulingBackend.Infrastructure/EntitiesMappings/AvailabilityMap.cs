@@ -35,6 +35,11 @@ public class AvailabilityMap : IEntityTypeConfiguration<Availability>
                .HasForeignKey(a => a.DoctorId)
                .OnDelete(DeleteBehavior.Cascade);
 
+        builder.HasMany(a => a.Appointments)
+                .WithOne(a => a.Availability)
+                .HasForeignKey(a => a.AvailabilityId)
+                .OnDelete(DeleteBehavior.Cascade);
+
         builder.HasIndex(a => new { a.DoctorId, a.Date, a.StartTime, a.EndTime })
                .IsUnique()
                .HasDatabaseName("uq_doctor_date");
