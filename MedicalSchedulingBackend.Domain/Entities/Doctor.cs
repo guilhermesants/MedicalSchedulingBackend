@@ -11,5 +11,4 @@ public class Doctor
     public string Email { get; set; } = string.Empty;
     public virtual User User { get; set; } = null!;
     public virtual ICollection<Availability> Availabilities { get; set; } = null!;
-    public ICollection<Appointment> Appointments { get; set; } = null!;
 }

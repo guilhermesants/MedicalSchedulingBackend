@@ -32,6 +32,11 @@ internal sealed class DoctorMap : IEntityTypeConfiguration<Doctor>
         builder.Property(a => a.Email)
                .HasColumnName("email");
 
+        builder.HasMany(a => a.Availabilities)
+            .WithOne(x => x.Doctor)
+            .HasForeignKey(x => x.DoctorId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         builder.ToTable("doctors", "public");
     }
 }

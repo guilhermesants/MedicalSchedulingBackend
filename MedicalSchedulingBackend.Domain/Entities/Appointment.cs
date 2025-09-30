@@ -8,7 +8,6 @@ public class Appointment
     public TimeOnly Time { get; set; }
     public int StatusId { get; set; }
     public virtual Patient Patient { get; set; } = null!;
-    public virtual Doctor Doctor { get; set; } = null!;
     public AppointmentStatus AppointmentStatus { get; set; } = null!;
     public Availability Availability { get; set; } = null!;
 }

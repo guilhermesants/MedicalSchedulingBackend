@@ -4,4 +4,5 @@ namespace MedicalSchedulingBackend.Domain.Interfaces.Repositories;
 
 public interface IAvailabilityRepository : IRepository<Availability>
 {
+    Task<Availability?> GetByIdAsync(long id, CancellationToken cancellationToken = default);
 }
